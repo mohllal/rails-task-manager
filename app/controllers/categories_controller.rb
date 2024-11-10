@@ -1,4 +1,4 @@
-class TasksController < ApplicationController
+class CategoriesController < ApplicationController
   def index
   end
 

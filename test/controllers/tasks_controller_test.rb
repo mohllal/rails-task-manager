@@ -15,4 +15,14 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
     get tasks_edit_url
     assert_response :success
   end
+
+  test "should get show" do
+    get tasks_show_url
+    assert_response :success
+  end
+
+  test "should get delete" do
+    get tasks_delete_url
+    assert_response :success
+  end
 end
