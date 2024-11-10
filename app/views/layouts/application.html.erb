@@ -11,6 +11,13 @@
   </head>
 
   <body>
+    <nav>
+      <ul>
+        <li><%= link_to 'Home', root_path %></li>
+        <li><%= link_to 'About', about_path %></li>
+        <li><%= link_to 'Tasks', tasks_index_path %></li>
+      </ul>
+    </nav>
     <%= yield %>
   </body>
 </html>
