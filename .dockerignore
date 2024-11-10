@@ -1,0 +1,42 @@
+# Ignore bundler config
+/.bundle
+
+# Ignore all logfiles and tempfiles
+/log/*
+/tmp/*
+!/log/.keep
+!/tmp/.keep
+
+# Ignore uploaded files in development
+/storage/*
+!/storage/.keep
+
+# Ignore the test, spec, and features directories
+/test
+/spec
+/features
+
+# Ignore system files
+.DS_Store
+*.swp
+
+# Ignore node modules
+/node_modules
+
+# Ignore coverage reports
+/coverage
+
+# Ignore the database
+/db/*.sqlite3
+/db/*.sqlite3-journal
+
+# Ignore byebug command history file
+/byebug_history
+
+# Ignore dotenv environment variable files
+.env
+.env.*
+
+# Ignore the Dockerfile and docker-compose.yml
+Dockerfile
+docker-compose.yml

@@ -10,12 +10,12 @@
 #   https://dev.mysql.com/doc/refman/5.7/en/password-hashing.html
 #
 default: &default
-  host: 127.0.0.1
   adapter: mysql2
   encoding: utf8mb4
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: root
-  password:
+  username: <%= ENV['MYSQL_USER'] %>
+  password: <%= ENV['MYSQL_PASSWORD'] %>
+  host: <%= ENV['MYSQL_HOST'] || 'db' %>
   socket: /tmp/mysql.sock
 
 development:
@@ -52,5 +52,3 @@ test:
 production:
   <<: *default
   database: task_manager_production
-  username: task_manager
-  password: <%= ENV["TASK_MANAGER_DATABASE_PASSWORD"] %>
