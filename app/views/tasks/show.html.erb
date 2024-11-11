@@ -1,0 +1,39 @@
+<h1 class="my-4">Task Details</h1>
+
+<%= link_to 'Back', tasks_path, class: 'btn btn-secondary mb-3' %>
+
+<div class="mb-3">
+  <%= link_to 'Edit', edit_task_path(@task), class: 'btn btn-primary' %>
+  <%= link_to 'Delete', delete_task_path(@task), class: 'btn btn-danger' %>
+</div>
+
+<table class="table table-striped table-bordered">
+  <tr>
+    <th>Name</th>
+    <td><%= @task.name %></td>
+  </tr>
+  <tr>
+    <th>Description</th>
+    <td><%= @task.description %></td>
+  </tr>
+  <tr>
+    <th>Position</th>
+    <td><%= @task.position %></td>
+  </tr>
+  <tr>
+    <th>Completed?</th>
+    <td><%= @task.completed? ? 'Yes' : 'No' %></td>
+  </tr>
+  <tr>
+    <th>Category</th>
+    <td><%= @task.category&.name || '-' %></td>
+  </tr>
+  <tr>
+    <th>Created At</th>
+    <td><%= @task.created_at %></td>
+  </tr>
+  <tr>
+    <th>Updated At</th>
+    <td><%= @task.updated_at %></td>
+  </tr>
+</table>

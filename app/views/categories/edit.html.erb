@@ -1,2 +1,11 @@
-<h1>Categories#edit</h1>
-<p>Find me in app/views/categories/edit.html.erb</p>
+<h1>Edit Category</h1>
+
+<%= link_to 'Back To Categories', categories_path, class: 'btn btn-secondary mb-3' %>
+
+<%= form_for @category, class: 'form' do |f| %>
+  <%= render partial: 'form', locals: {f: f} %>
+
+  <div class="form-group mb-2">
+    <%= f.submit 'Edit Category', class: 'btn btn-primary' %>
+  </div>
+<% end %>

@@ -20,7 +20,11 @@ Rails.application.routes.draw do
   # get 'tasks/edit'
   # get 'tasks/delete'
 
-  resources :categories
+  resources :categories do
+    member do
+      get :delete
+    end
+  end
 
   resources :tasks do
     member do
