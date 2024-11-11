@@ -1,5 +1,5 @@
 # Use the official Ruby image from the Docker Hub
-FROM ruby:3.1.2
+FROM ruby:3.2.5
 
 # Install dependencies
 RUN apt-get update -qq \
@@ -18,7 +18,8 @@ COPY Gemfile /src/Gemfile
 COPY Gemfile.lock /src/Gemfile.lock
 
 # Install the gems
-RUN bundle install
+RUN bundle config set force_ruby_platform true \
+  && bundle install
 
 # Copy the rest of the application code
 COPY . /src

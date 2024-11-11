@@ -123,6 +123,7 @@ GEM
     matrix (0.4.2)
     method_source (1.0.0)
     mini_mime (1.1.2)
+    mini_portile2 (2.8.7)
     minitest (5.15.0)
     msgpack (1.5.1)
     mysql2 (0.5.6)
@@ -141,6 +142,9 @@ GEM
       net-protocol
       timeout
     nio4r (2.5.8)
+    nokogiri (1.13.4)
+      mini_portile2 (~> 2.8.0)
+      racc (~> 1.4)
     nokogiri (1.13.4-aarch64-linux)
       racc (~> 1.4)
     nokogiri (1.13.4-arm64-darwin)
@@ -236,6 +240,7 @@ GEM
 PLATFORMS
   aarch64-linux
   arm64-darwin-24
+  ruby
   x86_64-darwin-21
 
 DEPENDENCIES
@@ -247,6 +252,7 @@ DEPENDENCIES
   jbuilder
   jquery-rails
   mysql2 (~> 0.5.6)
+  nokogiri
   puma (~> 5.0)
   rails (~> 7.0.2, >= 7.0.2.3)
   selenium-webdriver
@@ -258,7 +264,7 @@ DEPENDENCIES
   webdrivers
 
 RUBY VERSION
-   ruby 3.1.2p20
+   ruby 3.2.5
 
 BUNDLED WITH
    2.3.11
