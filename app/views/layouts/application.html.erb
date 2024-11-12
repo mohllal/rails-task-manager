@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xml:lang="en">
   <head>
-    <title>Task Manager</title>
+    <title>Task Manager<%= ' - ' + yield(:title) if content_for?(:title) %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -11,6 +11,9 @@
   </head>
 
   <body>
+    <div id="content">
+      <%= render(partial: 'layouts/flash') %>
+    </div>
 
     <% if logged_in? %>
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark" aria-label="Main navigation">
