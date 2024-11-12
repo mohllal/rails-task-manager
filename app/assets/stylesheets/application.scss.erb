@@ -59,4 +59,20 @@ th {
   background-color: #f4f4f4;
 }
 
+span.status {
+	display: block;
+	width: 20px;
+	height: 20px;
+	margin: 0.25em;
+	padding: 0;
+  background: no-repeat center/100%;
+}
+span.status.true {
+	background-image: url('<%= image_path('solid_square_tick.png') %>');
+}
+
+span.status.false {
+	background-image: url('<%= image_path('solid_square_cross.png') %>');
+}
+
 @import 'bootstrap';

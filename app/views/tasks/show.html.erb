@@ -24,7 +24,7 @@
   </tr>
   <tr>
     <th>Completed?</th>
-    <td><%= @task.completed? ? 'Yes' : 'No' %></td>
+    <td><%= status_tag(@task.completed?) %></td>
   </tr>
   <tr>
     <th>Category</th>

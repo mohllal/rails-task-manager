@@ -19,7 +19,7 @@
       <tr>
         <td><%= task.name %></td>
         <td><%= truncate(task.description, length: 40) %></td>
-        <td><%= task.completed? ? 'Yes' : 'No' %></td>
+        <td><%= status_tag(task.completed?) %></td>
         <% if task.category %>
           <td><%= link_to task.category.name, category_path(task.category) %></td>
         <% elsif %>
