@@ -16,7 +16,7 @@
   </tr>
   <tr>
     <th>Description</th>
-    <td><%= @task.description %></td>
+    <td><%= simple_format(word_wrap(@task.description, line_width: 100)) %></td>
   </tr>
   <tr>
     <th>Position</th>
@@ -32,10 +32,10 @@
   </tr>
   <tr>
     <th>Created At</th>
-    <td><%= @task.created_at %></td>
+    <td><%= @task.created_at.to_fs(:long) %></td>
   </tr>
   <tr>
     <th>Updated At</th>
-    <td><%= @task.updated_at %></td>
+    <td><%= @task.updated_at.to_fs(:long) %></td>
   </tr>
 </table>

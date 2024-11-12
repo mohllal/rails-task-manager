@@ -18,7 +18,7 @@
     <% @tasks.each do |task| %>
       <tr>
         <td><%= task.name %></td>
-        <td><%= task.description %></td>
+        <td><%= truncate(task.description, length: 40) %></td>
         <td><%= task.completed? ? 'Yes' : 'No' %></td>
         <% if task.category %>
           <td><%= link_to task.category.name, category_path(task.category) %></td>
