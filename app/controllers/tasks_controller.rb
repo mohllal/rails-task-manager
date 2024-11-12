@@ -20,7 +20,7 @@ class TasksController < ApplicationController
       redirect_to tasks_path
     else
       @count = Task.count
-      render('new', position: @count + 1)
+      render 'new', status: :unprocessable_entity
     end
   end
 
