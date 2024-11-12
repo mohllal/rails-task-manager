@@ -19,9 +19,6 @@
             <%= link_to 'Home', root_path, class: 'nav-link' %>
           </li>
           <li class="nav-item">
-            <%= link_to 'About', about_path, class: 'nav-link' %>
-          </li>
-          <li class="nav-item">
             <%= link_to 'Tasks', tasks_path, class: 'nav-link' %>
           </li>
            <li class="nav-item">
@@ -34,5 +31,12 @@
     <div class="container mt-4">
       <%= yield %>
     </div>
+
+    <footer class="footer footer-dark mt-4">
+      <div class="container">
+        <span class="text-muted
+          ">Task Manager &copy; 2024</span>
+      </div>
+    </footer>
   </body>
 </html>
