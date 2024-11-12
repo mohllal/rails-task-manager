@@ -6,17 +6,9 @@ Rails.application.routes.draw do
 
   root 'main#index'
 
-  # get 'categories/index'
-  # get 'categories/show'
-  # get 'categories/new'
-  # get 'categories/edit'
-  # get 'categories/delete'
-
-  # get 'tasks/index'
-  # get 'tasks/show'
-  # get 'tasks/new'
-  # get 'tasks/edit'
-  # get 'tasks/delete'
+  get 'login' => 'access#new'
+  delete 'logout' => 'access#destroy'
+  resource :access, controller: 'access', only: [:new, :create, :destroy]
 
   resources :categories do
     member do
