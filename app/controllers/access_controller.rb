@@ -1,5 +1,5 @@
 class AccessController < ApplicationController
-  skip_before_action :confirm_logged_in, only: [:new, :create]
+  skip_before_action :authenticate_user!, only: [:new, :create]
 
   def new
     if logged_in?
@@ -8,24 +8,27 @@ class AccessController < ApplicationController
   end
 
   def create
-    logger.info("*** Login User #{params[:username]} ***")
-
-    logger.info("Username: #{params[:username]}")
-    cookies[:username] = params[:username]
-    session[:user_id] = 1483
-
-    flash[:notice] = "Log in successful"
-    redirect_to(root_path)
+    user = User.find_by(email: params[:email])
+    if user && user.authenticate(params[:password])
+      session[:user_id] = user.id
+      cookies[:user_id] = user.id
+      
+      logger.info("*** Login User #{params[:email]} ***")
+      
+      redirect_to root_path, notice: 'User successfully logged in.'
+    else
+      flash.now[:alert] = 'Invalid email or password.'
+      render :new, status: :unauthorized
+    end
   end
 
 
   def destroy
-    logger.info("*** Logout User #{cookies[:username]} ***")
+    logger.info("*** Logout User #{cookies[:user_id]} ***")
 
-    cookies[:username] = nil
+    cookies[:user_id] = nil
     session[:user_id] = nil
 
-    flash[:notice] = "Logged out"
-    redirect_to(login_path)
+    redirect_to login_path, notice: 'User successfully logged out.'
   end
 end

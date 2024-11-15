@@ -45,7 +45,7 @@ gem "bootsnap", require: false
 gem 'bootstrap', '~> 5.1.3'
 gem 'jquery-rails'
 
-gem "nokogiri"
+gem "nokogiri", '1.13.4'
 
 # Use Sass to process CSS
 # gem "sassc-rails"

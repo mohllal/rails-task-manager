@@ -1,24 +1,18 @@
 class ApplicationController < ActionController::Base
-  before_action :get_user_info_from_session
-  before_action :confirm_logged_in
+  before_action :current_user
+  before_action :authenticate_user!
 
   helper_method :logged_in?
 
-private
-
-  def get_user_info_from_session
-    @username = cookies[:username]
-    @user_id = session[:user_id]
+  def current_user
+    @current_user ||= User.find_by(id: session[:user_id]) if session[:user_id]
   end
-
+  
   def logged_in?
-    session[:user_id].present?
+    !!current_user
   end
 
-  def confirm_logged_in
-    unless logged_in?
-      flash[:notice] = 'Please login first!'
-      redirect_to(login_path)
-    end
+  def authenticate_user!
+    redirect_to login_path unless current_user
   end
 end

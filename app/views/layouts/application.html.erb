@@ -32,7 +32,7 @@
           </ul>
           <ul class="navbar-nav ms-auto">
             <li class="nav-item d-flex align-items-center">
-              <span class="navbar-text">Welcome, <%= @username %></span>
+              <span class="navbar-text">Welcome, <%= @current_user.abberviated_name %></span>
             </li>
             <li class="nav-item d-flex align-items-center">
               <%= button_to 'Logout', logout_path, method: :delete, class: 'btn btn-link nav-link text-danger' %>
@@ -45,6 +45,9 @@
         <a class="navbar-brand" href="#">Task Manager</a>
         <div class="collapse navbar-collapse">
           <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <%= link_to 'Register', register_path, class: 'nav-link' %>
+            </li>
             <li class="nav-item">
               <%= link_to 'Login', login_path, class: 'nav-link' %>
             </li>
