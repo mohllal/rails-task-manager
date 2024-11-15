@@ -4,11 +4,13 @@
 
 <%= link_to 'Back To Tasks', tasks_path, class: 'btn btn-secondary mb-3' %>
 
-<%= form_for @task, class: 'form', method: 'delete' do |f| %>
+<%= form_for(@task, class: "form-horizontal", method: 'delete') do |f| %>
   <p>Are you sure you want to delete this task?</p>
   <p><%= @task.name %></p>
 
   <div class="form-group mb-2">
-    <%= f.submit 'Delete Task', class: 'btn btn-danger' %>
+    <div class="col-sm-offset-2 col-sm-10">
+      <%= f.submit 'Delete Task', class: 'btn btn-danger' %>
+    </div>
   </div>
 <% end %>

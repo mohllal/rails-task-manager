@@ -4,10 +4,12 @@
 
 <%= link_to 'Back To Tasks', tasks_path, class: 'btn btn-secondary mb-3' %>
 
-<%= form_for @task, class: 'form' do |f| %>
+<%= form_for(@task, class: "form-horizontal") do |f| %>
   <%= render partial: 'form', locals: {f: f} %>
 
   <div class="form-group mb-2">
-    <%= f.submit 'Create Task', class: 'btn btn-success' %>
+    <div class="col-sm-offset-2 col-sm-10">
+      <%= f.submit 'Create Task', class: 'btn btn-success' %>
+    </div>
   </div>
 <% end %>
