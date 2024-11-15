@@ -3,7 +3,7 @@ class Task < ApplicationRecord
 
   belongs_to :category, optional: true
   has_and_belongs_to_many :tags
-  has_many :task_user_assignments
+  has_many :task_user_assignments, dependent: :destroy
   has_many :users, through: :task_user_assignments
 
   validates :name, presence: true, length: { maximum: 50 }

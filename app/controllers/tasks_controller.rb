@@ -1,11 +1,12 @@
 class TasksController < ApplicationController
   def index
-    @tasks = Task.all.order(:position)
+    @tasks = current_user.tasks.sorted
   end
 
   def show
     task_id = params[:id]
-    @task = Task.find(task_id)
+    @task = current_user.tasks.find_by(id: task_id)
+    redirect_to tasks_path, alert: 'Task not found' unless @task
   end
 
   def new
@@ -17,6 +18,7 @@ class TasksController < ApplicationController
     @task = Task.new(task_params)
 
     if @task.save
+      TaskUserAssignment.create(task: @task, user: current_user, role: "owner")
       redirect_to tasks_path
     else
       @count = Task.count

@@ -5,7 +5,7 @@ class User < ApplicationRecord
 
   has_many :categories
   has_many :tags
-  has_many :task_user_assignments
+  has_many :task_user_assignments, dependent: :destroy
   has_many :tasks, through: :task_user_assignments
 
   validates :first_name, presence: true, length: { maximum: 25 }

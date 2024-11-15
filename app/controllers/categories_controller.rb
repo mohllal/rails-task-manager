@@ -1,11 +1,12 @@
 class CategoriesController < ApplicationController
   def index
-    @categories = Category.all
+    @categories = current_user.categories.sorted
   end
 
   def show
     category_id = params[:id]
-    @category = Category.find(category_id)
+    @category = current_user.categories.find_by(id: category_id)
+    redirect_to categories_path, alert: 'Category not found' unless @category
   end
 
   def new
@@ -13,7 +14,7 @@ class CategoriesController < ApplicationController
   end
 
   def create
-    @category = Category.new(category_params)
+    @category = Category.new(category_params.merge(user_id: current_user.id))
 
     if @category.save
       redirect_to categories_path
@@ -53,6 +54,6 @@ class CategoriesController < ApplicationController
 private
 
   def category_params
-    params.require(:category).permit(:name)
+    params.require(:category).permit(:name, :user_id)
   end
 end

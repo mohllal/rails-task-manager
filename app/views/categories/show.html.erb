@@ -17,16 +17,21 @@
   <tr>
     <th>Tasks</th>
     <td>
-      <ul>
-        <% @category.tasks.limit(3).each do |task| %>
-          <li><%= link_to task.name, task_path(task) %></li>
-        <% end %>
+      <% if @category.tasks.empty? %>
+        <p>No tasks found</p>
+      <% else %>
+        <ul>
+          <% @category.tasks.limit(3).each do |task| %>
+            <li><%= link_to task.name, task_path(task) %></li>
+          <% end %>
 
-        <% if @category.tasks.count > 3 %>
-          <li>more...</li>
-        <% end %>
-      </ul>
+          <% if @category.tasks.count > 3 %>
+            <li>more...</li>
+          <% end %>
+        </ul>
+      <% end %>
     </td>
+  </tr>
   <tr>
     <th>Created At</th>
     <td><%= @category.created_at.to_fs(:long) %></td>
