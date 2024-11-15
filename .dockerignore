@@ -40,3 +40,6 @@
 # Ignore the Dockerfile and docker-compose.yml
 Dockerfile
 docker-compose.yml
+
+# direnv directory
+.direnv

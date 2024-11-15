@@ -1,6 +1,8 @@
 class Category < ApplicationRecord
-  has_many :tasks, dependent: :destroy
+  belongs_to :user
+  has_many :tasks, dependent: :nullify
 
-  validates :name, presence: true
-  validates :name, uniqueness: true
+  validates :name, presence: true, length: { within: 3..50 }
+
+  scope :sorted, -> { order(:name) }
 end
