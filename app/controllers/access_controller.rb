@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AccessController < ApplicationController
   skip_before_action :authenticate_user!, only: %i[new create]
 
@@ -9,7 +11,7 @@ class AccessController < ApplicationController
 
   def create
     user = User.find_by(email: params[:email])
-    if user && user.authenticate(params[:password])
+    if user&.authenticate(params[:password])
       session[:user_id] = user.id
       cookies[:user_id] = user.id
 

@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 module ApplicationHelper
   def error_messages_for(object)
-    render(partial: 'layouts/error_messages', locals: {object: object})
+    render(partial: 'layouts/error_messages', locals: { object: })
   end
 
-  def status_tag(boolean, options={})
+  def status_tag(boolean, options = {})
     options[:true_text] ||= ''
     options[:false_text] ||= ''
 

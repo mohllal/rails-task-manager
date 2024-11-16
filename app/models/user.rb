@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User < ApplicationRecord
   has_secure_password
 
@@ -17,7 +19,7 @@ class User < ApplicationRecord
             format: { with: EMAIL_REGEX }
   validates :password, presence: true, length: { minimum: 6 }, if: -> { new_record? || !password.nil? }
   validates_acceptance_of :terms_of_service
-  
+
   scope :sorted, -> { order(:last_name, :first_name) }
 
   def full_name

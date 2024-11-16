@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class Task < ApplicationRecord
-  PROHIBITED_WORDS = ['later', 'eventually', 'someday']
+  PROHIBITED_WORDS = %w[later eventually someday].freeze
 
   belongs_to :category, optional: true
   has_and_belongs_to_many :tags
@@ -13,7 +15,7 @@ class Task < ApplicationRecord
 
   before_validation :titlize_name
   before_validation :set_default_position,
-    if: Proc.new {|t| t.position.blank? || t.position < 1 }
+                    if: proc { |t| t.position.blank? || t.position < 1 }
   before_create :log_create
   before_update :log_update
   after_save :log_save
@@ -21,17 +23,15 @@ class Task < ApplicationRecord
   scope :completed, -> { where(completed: true) }
   scope :incompleted, -> { where(completed: false) }
   scope :sorted, -> { order(:position) }
-  scope :search, -> (term) { where('LOWER(name) LIKE ?', "%#{term.downcase}%") }
+  scope :search, ->(term) { where('LOWER(name) LIKE ?', "%#{term.downcase}%") }
 
-private
+  private
 
   def description_has_no_prohibited_words
-    if description.present? && description.downcase
-      PROHIBITED_WORDS.each do |word|
-        if description.include?(word)
-          errors.add(:description, "cannot include the word '#{word}'")
-        end
-      end
+    return unless description.present? && description.downcase
+
+    PROHIBITED_WORDS.each do |word|
+      errors.add(:description, "cannot include the word '#{word}'") if description.include?(word)
     end
   end
 
@@ -40,7 +40,7 @@ private
   end
 
   def set_default_position
-    self.position = Task.where(category_id: category_id).count + 1
+    self.position = Task.where(category_id:).count + 1
   end
 
   def log_create
