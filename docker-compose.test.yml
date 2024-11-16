@@ -1,5 +1,5 @@
 services:
-  db:
+  test-db:
     platform: linux/x86_64
     image: mysql:5.7
     environment:
@@ -7,14 +7,22 @@ services:
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
-  web:
+  test:
     build: .
-    command: bundle exec rails test
+    command: bundle exec rails test RAILS_ENV=test
+    env_file:
+      - .env.test
     volumes:
       - .:/src
     depends_on:
-      - db
+      test-db:
+        condition: service_healthy
     environment:
       RAILS_ENV: ${RAILS_ENV}
-      DATABASE_URL: mysql2://${MYSQL_USER}:${MYSQL_PASSWORD}@db/${MYSQL_DATABASE}
+      DATABASE_URL: mysql2://${MYSQL_USER}:${MYSQL_PASSWORD}@test-db/${MYSQL_DATABASE}

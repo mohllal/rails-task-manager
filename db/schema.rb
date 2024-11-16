@@ -13,7 +13,7 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.0].define(version: 20_241_115_163_623) do
-  create_table 'categories', charset: 'utf8mb4', force: :cascade do |t|
+  create_table 'categories', charset: 'latin1', force: :cascade do |t|
     t.string 'name', null: false
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
@@ -21,7 +21,7 @@ ActiveRecord::Schema[7.0].define(version: 20_241_115_163_623) do
     t.index ['user_id'], name: 'index_categories_on_user_id'
   end
 
-  create_table 'tags', charset: 'utf8mb4', force: :cascade do |t|
+  create_table 'tags', charset: 'latin1', force: :cascade do |t|
     t.string 'name', null: false
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
@@ -29,14 +29,14 @@ ActiveRecord::Schema[7.0].define(version: 20_241_115_163_623) do
     t.index ['user_id'], name: 'index_tags_on_user_id'
   end
 
-  create_table 'tags_tasks', id: false, charset: 'utf8mb4', force: :cascade do |t|
+  create_table 'tags_tasks', id: false, charset: 'latin1', force: :cascade do |t|
     t.bigint 'tag_id', null: false
     t.bigint 'task_id', null: false
     t.index %w[tag_id task_id], name: 'index_tags_tasks_on_tag_id_and_task_id'
     t.index %w[task_id tag_id], name: 'index_tags_tasks_on_task_id_and_tag_id'
   end
 
-  create_table 'task_user_assignments', charset: 'utf8mb4', force: :cascade do |t|
+  create_table 'task_user_assignments', charset: 'latin1', force: :cascade do |t|
     t.bigint 'task_id', null: false
     t.bigint 'user_id', null: false
     t.string 'role'
@@ -48,7 +48,7 @@ ActiveRecord::Schema[7.0].define(version: 20_241_115_163_623) do
     t.index ['user_id'], name: 'index_task_user_assignments_on_user_id'
   end
 
-  create_table 'tasks', charset: 'utf8mb4', force: :cascade do |t|
+  create_table 'tasks', charset: 'latin1', force: :cascade do |t|
     t.string 'name', null: false
     t.text 'description'
     t.integer 'position', null: false
@@ -59,7 +59,7 @@ ActiveRecord::Schema[7.0].define(version: 20_241_115_163_623) do
     t.index ['category_id'], name: 'index_tasks_on_category_id'
   end
 
-  create_table 'users', charset: 'utf8mb4', force: :cascade do |t|
+  create_table 'users', charset: 'latin1', force: :cascade do |t|
     t.string 'first_name'
     t.string 'last_name'
     t.string 'email'

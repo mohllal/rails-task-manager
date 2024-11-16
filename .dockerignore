@@ -36,6 +36,7 @@
 # Ignore dotenv environment variable files
 .env
 .env.*
+.env*.local
 
 # Ignore the Dockerfile and docker-compose.yml
 Dockerfile
