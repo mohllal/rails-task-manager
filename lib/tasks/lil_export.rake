@@ -12,7 +12,8 @@ namespace :lil do
     db = db_config['database']
     backup_file = Rails.root.join('db', "#{db}.sql")
     f = Shellwords.escape(backup_file)
-    opt = '--quick --add-drop-table --skip-add-locks --skip-comments --skip-disable-keys --skip-lock-tables --skip-create-options --skip-tz-utc --skip-set-charset'
+    opt = '--quick --add-drop-table --skip-add-locks --skip-comments --skip-disable-keys ' \
+          '--skip-lock-tables --skip-create-options --skip-tz-utc --skip-set-charset'
     cmd = "mysqldump -h #{h} -u #{u} --password=#{p} #{opt} #{db} > #{f}"
 
     verbose(false) do

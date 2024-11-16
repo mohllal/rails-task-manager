@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# CreateTaskUserAssignments is a migration to create the task_user_assignments table.
 class CreateTaskUserAssignments < ActiveRecord::Migration[7.0]
   def change
     create_table :task_user_assignments do |t|

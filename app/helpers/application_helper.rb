@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# ApplicationHelper is a helper module for application-related methods
 module ApplicationHelper
   def error_messages_for(object)
     render(partial: 'layouts/error_messages', locals: { object: })

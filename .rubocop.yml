@@ -1,1 +1,13 @@
-inherit_from: .rubocop_todo.yml
+Metrics/BlockLength:
+  Max: 60
+
+Metrics/MethodLength:
+  Max: 30
+  Contexts:
+    - 'class'
+    - 'module'
+
+AllCops:
+  Exclude:
+    - 'bin/bundle'
+    - 'lib/tasks/*.rake'

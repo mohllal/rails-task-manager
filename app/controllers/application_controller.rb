@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# ApplicationController is the base controller for all other controllers.
+# It provides common functionality such as user authentication and helper methods.
 class ApplicationController < ActionController::Base
   before_action :current_user
   before_action :authenticate_user!

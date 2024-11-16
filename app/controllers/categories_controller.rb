@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# CategoriesController manages the CRUD operations for categories.
 class CategoriesController < ApplicationController
   def index
     @categories = current_user.categories.sorted

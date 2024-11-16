@@ -21,6 +21,17 @@ namespace :lil do
     default_db_name = "#{project_name}_#{env_config}"
     default_username = 'rails_user'
     default_password = 'secretpassword'
+    print_intro(default_db_name, default_username, default_password)
+    response = $stdin.gets.chomp
+    if !%w[y yes].include?(response.downcase)
+      puts 'Exiting import without any changes.'
+    else
+      host, database, username, import_file = get_user_input(default_db_name, default_username)
+      run_import(host, database, username, import_file)
+    end
+  end
+
+  def print_intro(default_db_name, default_username, default_password)
     puts
     puts '-' * 60
     puts 'Ruby on Rails Essential Training Import Task'
@@ -30,9 +41,9 @@ namespace :lil do
     puts
     puts 'You must have already created a database before using this import.'
     puts "Example: CREATE DATABASE #{default_db_name};"
-    puts "         CREATE USER '#{default_username}'@'localhost' \ "
+    puts "         CREATE USER '#{default_username}'@'localhost' \\"
     puts "         IDENTIFIED BY '#{default_password}';"
-    puts "         GRANT ALL PRIVILEGES ON #{default_db_name}.* \ "
+    puts "         GRANT ALL PRIVILEGES ON #{default_db_name}.* \\"
     puts "         TO '#{default_username}'@'localhost';"
     puts 'Refer to the sections on installing MySQL and configuring the '
     puts 'the database if you need more help.'
@@ -46,40 +57,42 @@ namespace :lil do
     puts 'Importing the new database data will wipe out any existing database data.'
     puts
     print 'Proceed? (yes/no) > '
+  end
+
+  def get_user_input(default_db_name, default_username)
+    puts '-' * 60
+    puts "\nYou can choose the default settings by just hitting return."
+    print 'Enter database hostname: (localhost) > '
     response = $stdin.gets.chomp
-    if !%w[y yes].include?(response.downcase)
-      puts 'Exiting import without any changes.'
-    else
-      puts '-' * 60
-      puts "\nYou can choose the default settings by just hitting return."
-      print 'Enter database hostname: (localhost) > '
-      response = $stdin.gets.chomp
-      host = response.blank? ? 'localhost' : response
+    host = response.empty? ? 'localhost' : response
 
-      print "Enter database name: (#{default_db_name}) > "
-      response = $stdin.gets.chomp
-      database = response.blank? ? default_db_name : response
+    print "Enter database name: (#{default_db_name}) > "
+    response = $stdin.gets.chomp
+    database = response.empty? ? default_db_name : response
 
-      print "Enter database username: (#{default_username}) > "
-      response = $stdin.gets.chomp
-      username = response.blank? ? default_username : response
+    print "Enter database username: (#{default_username}) > "
+    response = $stdin.gets.chomp
+    username = response.empty? ? default_username : response
 
-      default_file = File.join('db', "#{default_db_name}.sql")
-      print "Enter import file path: (#{default_file}) > "
-      response = $stdin.gets.chomp
-      import_file = response.blank? ? default_file : response
+    default_file = File.join('db', "#{default_db_name}.sql")
+    print "Enter import file path: (#{default_file}) > "
+    response = $stdin.gets.chomp
+    import_file = response.empty? ? default_file : response
 
-      puts
-      puts "Please enter the correct MySQL password for the user '#{username}'"
-      puts 'and hit return (for security, you will not see what you type).'
-      import_command = "mysql -h #{host} -u #{username} -p #{database} < #{import_file}"
-      verbose(false) do
-        sh import_command do |ok, _res|
-          if ok
-            puts "\nImport complete.\n\n"
-          else
-            puts "\nImport failed.\n\n"
-          end
+    [host, database, username, import_file]
+  end
+
+  def run_import(host, database, username, import_file)
+    puts
+    puts "Please enter the correct MySQL password for the user '#{username}'"
+    puts 'and hit return (for security, you will not see what you type).'
+    import_command = "mysql -h #{host} -u #{username} -p #{database} < #{import_file}"
+    verbose(false) do
+      sh import_command do |ok, _res|
+        if ok
+          puts "\nImport complete.\n\n"
+        else
+          puts "\nImport failed.\n\n"
         end
       end
     end

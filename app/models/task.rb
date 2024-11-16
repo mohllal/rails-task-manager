@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Task is a model for tasks
 class Task < ApplicationRecord
   PROHIBITED_WORDS = %w[later eventually someday].freeze
 

@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# CreateTasks is a migration to create the tasks table.
 class CreateTasks < ActiveRecord::Migration[7.0]
   def change
     create_table :tasks do |t|

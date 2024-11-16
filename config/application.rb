@@ -9,6 +9,7 @@ require 'rails/all'
 Bundler.require(*Rails.groups)
 
 module TaskManager
+  # Application class is the main entry point for the Rails application.
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0

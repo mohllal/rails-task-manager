@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# TasksController manages the CRUD operations for tasks.
 class TasksController < ApplicationController
   def index
     @tasks = current_user.tasks.sorted
