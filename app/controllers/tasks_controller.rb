@@ -1,12 +1,18 @@
 class TasksController < ApplicationController
   def index
     @tasks = current_user.tasks.sorted
+    logger.info("TasksController#index - User: #{current_user.id}, Tasks: #{@tasks.map(&:id)}")
   end
 
   def show
     task_id = params[:id]
     @task = current_user.tasks.find_by(id: task_id)
-    redirect_to tasks_path, alert: 'Task not found' unless @task
+    if @task
+      logger.info("TasksController#show - User: #{current_user.id}, Task: #{@task.id}")
+    else
+      logger.warn("TasksController#show - User: #{current_user.id}, Task not found: #{task_id}")
+      redirect_to tasks_path, alert: 'Task not found'
+    end
   end
 
   def new
@@ -18,9 +24,11 @@ class TasksController < ApplicationController
     @task = Task.new(task_params)
 
     if @task.save
-      TaskUserAssignment.create(task: @task, user: current_user, role: "owner")
+      logger.info("TasksController#create - Task created: #{@task.id}")
+      TaskUserAssignment.create(task: @task, user: current_user, role: 'owner')
       redirect_to tasks_path
     else
+      logger.error("TasksController#create - Failed to create task: #{task_params}")
       @count = Task.count
       render 'new', status: :unprocessable_entity
     end
@@ -36,8 +44,10 @@ class TasksController < ApplicationController
     @task = Task.find(task_id)
 
     if @task.update(task_params)
+      logger.info("TasksController#update - Task updated: #{@task.id}")
       redirect_to task_path(@task)
     else
+      logger.error("TasksController#update - Failed to update task: #{task_params}")
       render('edit')
     end
   end
@@ -54,7 +64,7 @@ class TasksController < ApplicationController
     redirect_to tasks_path
   end
 
-private
+  private
 
   def task_params
     params.require(:task).permit(:name, :description, :position, :category_id, :completed)
